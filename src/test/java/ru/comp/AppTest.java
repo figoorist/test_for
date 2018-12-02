@@ -1,14 +1,17 @@
 package ru.comp;
 
-import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import ru.comp.Pages.HomePage;
 import ru.comp.Pages.ResultsPage;
+
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class AppTest extends TestNgTestBase {
 
@@ -25,13 +28,26 @@ public class AppTest extends TestNgTestBase {
   }
 
   @Test
-  public void testGazIs() {
-    driver.get(baseUrl);
-
+  @Parameters({"siteUrl", "queryString", "wantedLink", "gasisTitle"})
+  public void testGazIs(String siteUrl,
+                        String queryString,
+                        String wantedLink,
+                        String gasisTitle) throws MalformedURLException {
+    //заходим на yandex.ru
+    driver.get(siteUrl);
+    //вводим запрос
     homepage.getSearchLine().sendKeys(queryString);
+    //нажимаем Найти
     homepage.getSearchButton().click();
-    resultsPage.getResultByLink(resultLink).click();
+    //кликаем ссылку на нужный сайт
+    resultsPage.getResultByLink(wantedLink).click();
 
-    Assert.assertFalse(false);
+    //получаем массив закладок
+    ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+    //переходим на последнюю открытую
+    driver.switchTo().window(tabs.get(tabs.size() - 1));
+
+    //проверяем title
+    Assert.assertEquals(homepage.getTitle(), gasisTitle);
   }
 }

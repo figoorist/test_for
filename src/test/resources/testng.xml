@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Tests" verbose="5">
-  <test name="Test1">
+  <test name="test_for">
+    <parameter name="siteUrl" value="https://www.yandex.ru/"/>
+    <parameter name="queryString" value="Газинформсервис"/>
+    <parameter name="wantedLink" value="https://www.gaz-is.ru/"/>
+    <parameter name="gasisTitle" value="Газинформсервис - информационная безопасность"/>
     <classes>
       <class name="ru.comp.AppTest"/>
     </classes>

@@ -19,35 +19,18 @@ import ru.stqa.selenium.factory.WebDriverPool;
  */
 public class TestNgTestBase {
 
-  protected static URL gridHubUrl = null;
-  protected static String baseUrl;
-  protected static String queryString;
-  protected static String resultLink;
-  protected static Capabilities capabilities;
-
   /** Свойство - драйвер браузера*/
   protected WebDriver driver;
 
   @BeforeSuite
-  public void initTestSuite() throws IOException {
-    SuiteConfiguration config = new SuiteConfiguration();
-    baseUrl = config.getProperty("site.url");
-    queryString = config.getProperty("querystring");
-    resultLink = config.getProperty("resultlink");
-    if (config.hasProperty("grid.url") && !"".equals(config.getProperty("grid.url"))) {
-      gridHubUrl = new URL(config.getProperty("grid.url"));
-    }
-    capabilities = config.getCapabilities();
-  }
-
-  @BeforeMethod
-  public void initWebDriver() {
+  public void initTestSuite() {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    driver.manage().window().maximize();
   }
 
   @AfterSuite(alwaysRun = true)
   public void tearDown() {
-    WebDriverPool.DEFAULT.dismissAll();
+    driver.quit();
   }
 }

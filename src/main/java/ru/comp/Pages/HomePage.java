@@ -28,4 +28,6 @@ public class HomePage extends Page{
     public WebElement getSearchButton(){
         return driver.findElement(By.tagName("button"));
     }
+
+
 }

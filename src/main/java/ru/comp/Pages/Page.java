@@ -9,10 +9,8 @@ public class Page {
     /** Член класса - драйвер веб-браузера*/
     protected final WebDriver driver;
 
-    /*
-     * Constructor injecting the WebDriver interface
-     *
-     * @param webDriver
+    /**
+     * @param driver
      */
     public Page(WebDriver driver) {
         this.driver = driver;
