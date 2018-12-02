@@ -1,2 +1,6 @@
 # test_for
-test for
+
+Browser: Chrome
+Maven
+TestNG
+Параметры теста - testng.xml
